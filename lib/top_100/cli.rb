@@ -21,7 +21,7 @@ class Top100::CLI
     else
       20.times do
         hit = self.current_hits[self.tracker]
-        puts "##{hit[:current_rank]}: #{hit[:song_name]} by #{hit[:song_artist]}. Previously number #{hit[:last_week_rank]} last week."
+        puts "##{hit[:current_rank]}: #{hit[:song_name]} by #{hit[:song_artist]}."
         puts "--------------------------------"
         self.tracker += 1
       end

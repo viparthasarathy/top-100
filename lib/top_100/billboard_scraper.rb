@@ -7,7 +7,6 @@ class Top100::BillboardScraper
     nokogiri_object.css('div.chart-row__primary').each do |song|
       charts_array << {
         current_rank: song.css('span.chart-row__current-week').text,
-        last_week_rank: song.css('span.chart-row__last-week').text,
         song_name: song.css('h2.chart-row__song').text,
         song_artist: song.css('a.chart-row__link').text.strip,
         artist_bio_link: song.css('a.chart-row__link').attribute('href').value + '/biography'
