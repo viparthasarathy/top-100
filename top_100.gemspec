@@ -8,9 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Top100::VERSION
   spec.authors       = ["viparthasarathy"]
   spec.email         = ["viparthasarathy@gmail.com"]
-
   spec.summary       = %q{A CLI gem that allows the user to acquire information about trending songs and artists.}
-  spec.description   =
   spec.homepage      = "https://github.com/viparthasarathy/top-100"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
