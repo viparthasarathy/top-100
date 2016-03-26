@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-Enter the requested input in the CLI in order to acquire more information about artists or browse the Billboard charts.
+After installation, execute the gem by inputting top_100 into the console. The user will now be able to interact with the gem and request more information about the Billboard Top 100 or read the biographical information about trending artists.
 
 ## Development
 
