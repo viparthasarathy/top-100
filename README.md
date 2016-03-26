@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-
+Enter the requested input in the CLI in order to acquire more information about artists or browse the Billboard charts.
 
 ## Development
 
