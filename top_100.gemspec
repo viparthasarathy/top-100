@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["viparthasarathy@gmail.com"]
   spec.summary       = %q{A CLI gem that allows the user to acquire information about trending songs and artists.}
   spec.homepage      = "https://github.com/viparthasarathy/top-100"
-  spec.executables << 'top_100'
+  spec.executables   = ["top_100"]
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
