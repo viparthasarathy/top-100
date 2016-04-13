@@ -8,7 +8,6 @@ class Top100::CLI
     @current_hits = self.scraper.scrape_from_chart_page
   end
 
-
   def call
     puts "Welcome to the Billboard Hot 100. Now outputting the top twenty songs..."
     display_chart
@@ -47,7 +46,11 @@ class Top100::CLI
       display_chart
       present_options
     elsif choice.match(/\d+/)
-      display_artist(choice.match(/\d+/)[0])
+      begin
+        display_artist(choice.match(/\d+/)[0])
+        rescue OpenURI::HTTPError => error
+          puts "Sorry, we're having trouble displaying this artist's details."
+      end
       present_options
     else
       puts "Unknown command. Try again."
