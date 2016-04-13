@@ -1,6 +1,6 @@
 # Top100
 
-This gem allows the user to interact with the Billboard's Top 100 via the command line interface. Users can acquire a real time list of trending songs and acquire more information about the artists responsible for the works. Information is acquired through the use of the Nokogiri gem and OpenUri in order to data scrape information from the Billboard website.
+This gem allows the user to interact with the Billboard's Top 100 via the command line interface. Users can acquire a real time list of trending songs and acquire more information about the artists responsible for the works. Users can also open up Spotify links in their default browser of any songs they wish to hear. Information is acquired through the use of the Nokogiri gem and OpenUri in order to scrape data and information from the Billboard website.
 
 ## Installation
 
