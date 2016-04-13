@@ -17,7 +17,7 @@ class Artist
     puts "Name: #{self.name}"
     puts "From: #{self.location}"
     puts "Formed: #{self.date} "
-    song_names = self.songs.map {|s| s.name}
+    song_names = self.songs.map {|song| song.name}
     puts "Currently Trending Songs: #{song_names.join(", ")}"
     puts "Bio: #{self.bio}"
   end
@@ -28,7 +28,7 @@ class Artist
 
   #Artists have unique names, search for a match using the name or create a new Artist object.
   def self.find_or_create(artist_name)
-    Artist.all.each {|a| return a if a.name == artist_name}
+    Artist.all.each {|artist| return artist if artist.name == artist_name}
     Artist.new(artist_name)
   end
 

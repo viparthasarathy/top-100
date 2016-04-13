@@ -17,7 +17,7 @@ class Song
   end
 
   def self.play(rank)
-    song = Song.all.find {|s| s.rank == rank }
+    song = Song.all.find {|song| song.rank == rank }
 
     if song.nil?
       puts "You've entered an invalid chart name."
