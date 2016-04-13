@@ -1,32 +1,35 @@
-class Top100::Artist
+class Artist
   attr_accessor :songs, :name, :location, :date, :bio
-  CURRENT_HITS = Top100::BillboardScraper.new.scrape_from_chart_page
+  @@artists = []
 
-  def initialize(artist_hash)
-    artist_hash.each {|key, value| self.send("#{key}=", value)}
-    @songs = []
-    add_current_hits
-  end
-
-  def add_current_hits
-    CURRENT_HITS.each { |hit| self.songs << hit[:song_name] if hit[:song_artist].include?(self.name) }
+  #Songs already initialized, search for matching songs using name.
+  def initialize(artist_name)
+    @songs = Song.all.select {|song| song.artist_name == artist_name}
+    if @songs.empty?
+      self.name = nil
+    else
+      BillboardScraper.scrape_from_artist_bio_page(@songs[0].artist_bio_url).each {|key, value| self.send("#{key}=", value)}
+      @@artists << self
+    end
   end
 
   def display_details
     puts "Name: #{self.name}"
     puts "From: #{self.location}"
     puts "Formed: #{self.date} "
-    puts "Currently Trending Songs: #{self.songs.join(", ")}"
+    song_names = self.songs.map {|s| s.name}
+    puts "Currently Trending Songs: #{song_names.join(", ")}"
     puts "Bio: #{self.bio}"
   end
 
-  def self.create_artist(rank)
-    info_hash = CURRENT_HITS.find { |hit| hit[:current_rank] == rank }
-    unless info_hash == nil
-      artist_hash = Top100::BillboardScraper.new.scrape_from_artist_bio_page(info_hash[:artist_bio_link])
-      artist = self.new(artist_hash)
-      artist
-    end
+  def self.all
+    @@artists
+  end
+
+  #Artists have unique names, search for a match using the name or create a new Artist object.
+  def self.find_or_create(artist_name)
+    Artist.all.each {|a| return a if a.name == artist_name}
+    Artist.new(artist_name)
   end
 
 end

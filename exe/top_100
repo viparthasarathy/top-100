@@ -3,4 +3,4 @@
 require "bundler/setup"
 require "top_100"
 
-Top100::CLI.new.call
+CLI.new.call

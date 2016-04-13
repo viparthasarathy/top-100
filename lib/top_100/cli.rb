@@ -1,11 +1,10 @@
-class Top100::CLI
-  attr_accessor :tracker, :current_hits, :scraper
+class CLI
+  attr_accessor :tracker
 
 
   def initialize
     @tracker = 0
-    @scraper = Top100::BillboardScraper.new
-    @current_hits = self.scraper.scrape_from_chart_page
+    BillboardScraper.scrape_from_chart_page
   end
 
   def call
@@ -19,44 +18,41 @@ class Top100::CLI
       puts "There are no more songs to display."
     else
       20.times do
-        hit = self.current_hits[self.tracker]
-        puts "##{hit[:current_rank]}: #{hit[:song_name]} by #{hit[:song_artist]}."
-        puts "--------------------------------"
+        Song.all[self.tracker].display
         self.tracker += 1
       end
     end
   end
 
-  def display_artist(rank)
-    artist = Top100::Artist.create_artist(rank)
-    if artist == nil
-      puts "Invalid input"
-    else
-      artist.display_details
-    end
+  def display_artist(name)
+    artist = Artist.find_or_create(name)
+    artist.name == nil ? puts("Artist not found.") : artist.display_details
     puts "--------------------------------"
   end
 
   def present_options
-    puts "Options: 1. type in 'exit' to exit. 2. type in 'next' for the next twenty songs. 3. type in the number of a song for an artist you would like to learn more about."
+    puts "Options: 1. type in 'exit' to exit. 2. type in 'next' for the next twenty songs. 3. type 'song' to choose a song to play. 4. type in the full artist title of a song to learn more about the main artist."
     choice = gets.chomp
-    if choice == 'exit'
+    case choice
+    when 'exit'
       puts "Now exiting..."
-    elsif choice == 'next'
+    when 'next'
       display_chart
       present_options
-    elsif choice.match(/\d+/)
+    when 'song'
+      puts "Enter the chart number of the song you would like to play."
+      rank = gets.chomp
+      Song.play(rank)
+      present_options
+    else
       begin
-        display_artist(choice.match(/\d+/)[0])
+        display_artist(choice)
+        # catches issues using OpenURI to access certain artist pages or issues with making frequent requests
         rescue OpenURI::HTTPError => error
           puts "Sorry, we're having trouble displaying this artist's details."
       end
       present_options
-    else
-      puts "Unknown command. Try again."
-      present_options
     end
   end
-
 
 end

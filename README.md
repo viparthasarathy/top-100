@@ -30,4 +30,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/top_100.
+Bug reports and pull requests are welcome on GitHub at https://github.com/viparthasarathy/top_100.
