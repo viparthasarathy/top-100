@@ -5,7 +5,7 @@ class Top100::Artist
   def initialize(artist_hash)
     artist_hash.each {|key, value| self.send("#{key}=", value)}
     @songs = []
-    self.add_current_hits
+    add_current_hits
   end
 
   def add_current_hits

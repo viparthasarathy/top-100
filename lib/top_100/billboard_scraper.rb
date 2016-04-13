@@ -19,13 +19,14 @@ class Top100::BillboardScraper
   def scrape_from_artist_bio_page(url)
     html = open(url)
     bio = Nokogiri::HTML(html)
+    location_date = bio.css('dl.facts > dd').text
+    info = bio.css('article.bio_content').text
     artist = {
       name: bio.css('h1.title').text,
-      location: bio.css('dl.facts > dd').text.split("  ")[0].strip,
-      date: bio.css('dl.facts > dd').text.match(/\d+/)[0],
+      location: location_date.empty? ? "Not Specified" : location_date.split("  ")[0].strip,
+      date: location_date.empty? ? "Not Specified" : location_date.match(/\d+/)[0],
+      bio: info.match(/\A\s*\z/) ? "Not Specified" : info.split("      ")[-1].strip
     }
-    bio.css('aside.bio_sidebar').remove
-    artist[:bio] = bio.css('article.bio_content').text.strip
     artist
   end
 
