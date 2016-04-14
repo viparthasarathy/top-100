@@ -31,7 +31,7 @@ class CLI
   end
 
   def present_options
-    puts "Options: 1. type in 'exit' to exit. 2. type in 'next' for the next twenty songs. 3. type 'song' to choose a song to play. 4. type in the full artist title of a song to learn more about the main artist."
+    puts "Options: 1. type in 'exit' to exit. 2. type in 'next' for the next twenty songs. 3. type 'song' to play a song sample. 4. type in the full artist title of a song to learn more about the main artist."
     choice = gets.chomp
     case choice
     when 'exit'

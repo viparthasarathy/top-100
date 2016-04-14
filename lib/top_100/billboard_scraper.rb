@@ -1,17 +1,17 @@
 class BillboardScraper
 
+
+  # will only use class methods, no need to create instances as there's nothing unique between these scrapers and we only need one.
+
   def self.scrape_from_chart_page
     nokogiri_object = Nokogiri::HTML(open('http://www.billboard.com/charts/hot-100'))
     nokogiri_object.css('div.chart-row__primary').each do |song|
-      url = song.css('a.chart-row__player-link')
       name = song.css('h3.chart-row__artist').text.strip.split(//)
       song_hash = {
         rank: song.css('span.chart-row__current-week').text,
         name: song.css('h2.chart-row__song').text,
         artist_bio_url: song.css('a.chart-row__link').attribute('href').value + '/biography',
         artist_name: song.css('h3.chart-row__artist').text.strip,
-        # missing url for some songs due to copyright issues, save url as nil for such songs
-        url: url.empty? ? nil : url.attribute('href').value
       }
       Song.new(song_hash)
     end
