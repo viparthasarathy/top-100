@@ -8,7 +8,7 @@ class Artist
     if @songs.empty?
       self.name = nil
     else
-      BillboardScraper.scrape_from_artist_bio_page(@songs[0].artist_bio_url).each {|key, value| self.send("#{key}=", value)}
+      BillboardScraper.scrape_from_artist_bio_page(@songs[0].artist_url).each {|key, value| self.send("#{key}=", value)}
       @@artists << self
     end
   end

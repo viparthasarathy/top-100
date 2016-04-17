@@ -1,5 +1,5 @@
 class Song
-  attr_accessor :rank, :name, :artist_name, :artist_bio_url, :url
+  attr_accessor :rank, :name, :artist_name, :artist_url, :url
   @@songs = []
 
   def initialize(song_hash)
@@ -33,15 +33,17 @@ class Song
 
   def self.play(rank)
     song = Song.all.find {|song| song.rank == rank }
-    song.url = song.spotify_link
     if song.nil?
       puts "You've entered an invalid chart name."
-    #check if song has a valid url, copyright issues with certain songs
-    elsif !!song.url
-      puts "Playing song..."
-      `open #{song.url}`
     else
-      puts "Sorry, that artist does not have their song on Spotify."
+      song.url = song.spotify_link
+      #check if song has a valid url, copyright issues with certain songs
+      if !!song.url
+        puts "Playing song..."
+        `open #{song.url}`
+      else
+        puts "Sorry, that artist does not have their song on Spotify."
+      end
     end
   end
 

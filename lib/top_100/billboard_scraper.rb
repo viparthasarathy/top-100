@@ -1,17 +1,19 @@
 class BillboardScraper
 
-
   # will only use class methods, no need to create instances as there's nothing unique between these scrapers and we only need one.
-
   def self.scrape_from_chart_page
-    nokogiri_object = Nokogiri::HTML(open('http://www.billboard.com/charts/hot-100'))
-    nokogiri_object.css('div.chart-row__primary').each do |song|
-      name = song.css('h3.chart-row__artist').text.strip.split(//)
+    billboard_page = Nokogiri::HTML(open('http://www.billboard.com/charts/hot-100'))
+    rss = RSS::Parser.parse(open('http://www.billboard.com/rss/charts/hot-100'))
+    rss.items.each_with_index do |song, index|
+      #account for any song titles that might happen to have ': ' in their title.
+      name = song.title.split(": ")[1..-1].join(": ")
+      rank = song.title.split(": ")[0]
       song_hash = {
-        rank: song.css('span.chart-row__current-week').text,
-        name: song.css('h2.chart-row__song').text,
-        artist_bio_url: song.css('a.chart-row__link').attribute('href').value + '/biography',
-        artist_name: song.css('h3.chart-row__artist').text.strip,
+        rank: rank,
+        name: name,
+        #feed doesn't seem to offer an artist value, requiring us to extract artist name from description instead.
+        artist_name: song.description.split("#{name} by ")[1].split(" ranks ##{rank}")[0],
+        artist_url: billboard_page.css('h3.chart-row__artist a.chart-row__link')[index].attribute('href').value + '/biography',
       }
       Song.new(song_hash)
     end

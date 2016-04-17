@@ -1,6 +1,7 @@
-require 'open-uri'
+require 'rss'
 require 'nokogiri'
 require 'json'
+
 
 require_relative "./top_100/version.rb"
 require_relative "./top_100/billboard_scraper.rb"
