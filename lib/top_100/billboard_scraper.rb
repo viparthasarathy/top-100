@@ -12,6 +12,8 @@ class BillboardScraper
         rank: rank,
         name: name,
         #feed doesn't seem to offer an artist value, requiring us to extract artist name from description instead.
+        #ISSUE: Collaborators saved as part of the artist name, which causes some difficulties with the search term for looking up the artist biography.
+        # One possible solution would be to compare artist_name and the artist_url slug value in order to determine where the artist name begins and ends and then save that value to song instead.
         artist_name: song.description.split("#{name} by ")[1].split(" ranks ##{rank}")[0],
         artist_url: billboard_page.css('a.chart-row__artist')[index].attribute('href').value + '/biography',
       }
