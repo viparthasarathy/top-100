@@ -13,7 +13,7 @@ class BillboardScraper
         name: name,
         #feed doesn't seem to offer an artist value, requiring us to extract artist name from description instead.
         artist_name: song.description.split("#{name} by ")[1].split(" ranks ##{rank}")[0],
-        artist_url: billboard_page.css('h3.chart-row__artist a.chart-row__link')[index].attribute('href').value + '/biography',
+        artist_url: billboard_page.css('a.chart-row__artist')[index].attribute('href').value + '/biography',
       }
       Song.new(song_hash)
     end
