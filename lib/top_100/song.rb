@@ -7,16 +7,10 @@ class Song
     @@songs << self
   end
 
-  def display
-    puts "##{self.rank}: #{self.name} by #{self.artist_name}."
-    puts "--------------------------------"
-  end
-
   #slug method used to help make query for spotify API request
   def slug
     self.name.gsub(/\s+/, "%20").delete('^a-zA-Z0-9\%').downcase
   end
-
 
   def spotify_link
     response = open("https://api.spotify.com/v1/search?q=#{self.slug}&type=track").read
