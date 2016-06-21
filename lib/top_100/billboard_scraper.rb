@@ -11,7 +11,8 @@ class BillboardScraper
       song_hash = {
         rank: rank,
         name: name,
-        #feed doesn't seem to offer an artist value, requiring us to extract artist name from description instead.
+        #ISSUE: RSS Parser feed doesn't seem to offer an artist value, requiring us to extract artist name from description instead. Alternatively, Nokogiri::XML can also open up the RSS information.
+        # Regardless, the HTML page has to be opened for the artist_url information.
         #ISSUE: Collaborators saved as part of the artist name, which causes some difficulties with the search term for looking up the artist biography.
         # One possible solution would be to compare artist_name and the artist_url slug value in order to determine where the artist name begins and ends and then save that value to song instead.
         artist_name: song.description.split("#{name} by ")[1].split(" ranks ##{rank}")[0],
