@@ -4,17 +4,7 @@ This gem allows the user to interact with the Billboard's Top 100 via the comman
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'top_100', :git => 'https://github.com/viparthasarathy/top-100.git'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Type the following command in terminal: 
 
     $ gem install top_100
 
