@@ -26,9 +26,23 @@ class CLI
 
   def display_artist(name)
     artist = Artist.find_or_create(name)
-    artist.name == nil ? puts("Artist not found.") : artist.display_details
+    if artist.name == nil
+      puts "Artist not found."
+    else
+      display_details(artist)
+    end
     puts "--------------------------------"
   end
+
+  def display_details(artist)
+    puts "Name: #{artist.name}"
+    puts "From: #{artist.location}"
+    puts "Formed: #{artist.date} "
+    song_names = artist.songs.map {|song| song.name}
+    puts "Currently Trending Songs: #{song_names.join(", ")}"
+    puts "Bio: #{artist.bio}"
+  end
+
 
   def present_options
     puts "Options: 1. type in 'exit' to exit. 2. type in 'next' for the next twenty songs. 3. type 'song' to play a song sample. 4. type in the full artist title of a song to learn more about the main artist."
@@ -42,7 +56,19 @@ class CLI
     when 'song'
       puts "Enter the chart number of the song you would like to play."
       rank = gets.chomp
-      Song.play(rank)
+      song = Song.find_by_rank(rank)
+      if song.nil?
+        puts "You've entered an invalid chart rank."
+      else
+        song.url = song.spotify_link
+        #check if song has a valid url, copyright issues with certain songs
+        if !!song.url
+          puts "Playing song..."
+          `open #{song.url}`
+        else
+          puts "Sorry, that artist does not have their song on Spotify."
+        end
+      end
       present_options
     else
       begin

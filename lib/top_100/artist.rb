@@ -13,15 +13,6 @@ class Artist
     end
   end
 
-  def display_details
-    puts "Name: #{self.name}"
-    puts "From: #{self.location}"
-    puts "Formed: #{self.date} "
-    song_names = self.songs.map {|song| song.name}
-    puts "Currently Trending Songs: #{song_names.join(", ")}"
-    puts "Bio: #{self.bio}"
-  end
-
   def self.all
     @@artists
   end

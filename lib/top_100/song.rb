@@ -32,20 +32,8 @@ class Song
     @@songs
   end
 
-  def self.play(rank)
+  def self.find_by_rank(rank)
     song = Song.all.find {|song| song.rank == rank }
-    if song.nil?
-      puts "You've entered an invalid chart rank."
-    else
-      song.url = song.spotify_link
-      #check if song has a valid url, copyright issues with certain songs
-      if !!song.url
-        puts "Playing song..."
-        `open #{song.url}`
-      else
-        puts "Sorry, that artist does not have their song on Spotify."
-      end
-    end
   end
 
 end

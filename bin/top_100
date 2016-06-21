@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-require "top_100"
+# require "bundler/setup"
+require_relative "../lib/top_100"
 
 CLI.new.call
