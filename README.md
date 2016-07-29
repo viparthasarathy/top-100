@@ -4,7 +4,7 @@ This gem allows the user to interact with the Billboard's Top 100 via the comman
 
 ## Installation
 
-Type the following command in terminal: 
+Type the following command in terminal:
 
     $ gem install top_100
 
@@ -16,3 +16,7 @@ After installation, execute the gem by inputting top_100 into the console. The u
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/viparthasarathy/top_100.
+
+## Copyright and License
+
+[MIT License.](https://github.com/viparthasarathy/top-100/blob/master/LICENSE.md) Copyright 2016 Vidul Parthasarathy.
